@@ -4,7 +4,7 @@ my project in "Interaktionskonzept"
 
 
 
-How can users interact with displays using gesture recognition?
+How can users interact with displays using gesture recognition?\\
 • What kind of gesture would be necessary for this interaction?
 • Can we add new gestures?
 • Can we share knowledge with other cars?
