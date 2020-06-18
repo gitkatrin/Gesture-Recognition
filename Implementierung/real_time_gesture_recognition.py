@@ -8,6 +8,8 @@ from keras.models import load_model # Keras API verwenden für DL
 #from soco import SoCo
 import pygame # zur Steuerung von Multimedia
 import time # ermöglicht viele Zeitbezogene Funktionen
+import datetime
+import paho.mqtt.client as mqtt
 
 # General Settings
 prediction = ''
@@ -207,9 +209,31 @@ while camera.isOpened():
         action = "music on"
     elif prediction == 'L':
         action = "calling police"
+        #Methode um Daten zu senden
+        def sendData():
+            topic = "/hshl/test" #Das Topic in dem gesendet werden soll
+            payLoad = "Katrin 51.672319,8.364846 police k80" #Die Daten die gesendet werden sollen
+            client.publish(topic, payLoad)
+        
+        #Event, dass beim Verbindungsaufbau aufgerufen wird
+        def on_connect(client, userdata, flags, rc):
+            sendData()#Aufruf der Senden Methode
+        
+        #Dont change anything from here!!
+        BROKER_ADDRESS = "mr2mbqbl71a4vf.messaging.solace.cloud" #Adresse des MQTT Brokers
+        client = mqtt.Client()
+        client.on_connect = on_connect #Zuweisen des Connect Events
+        client.username_pw_set("solace-cloud-client", "nbsse0pkvpkvhpeh3ll5j7rpha") # Benutzernamen und Passwort zur Verbindung setzen
+        client.connect(BROKER_ADDRESS, port = 20614) #Verbindung zum Broker aufbauen
+        
+        print("Connected to MQTT Broker: " + BROKER_ADDRESS)
+        client.loop_start()#Endlosschleife um neue Nachrichten empfangen zu können
+        client.loop_stop()
     elif prediction == 'Okay':
         action = "volume up"
     elif prediction == 'Peace':
         action = "volume down"
     else:
         pass
+
+
