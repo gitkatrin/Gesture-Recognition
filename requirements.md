@@ -5,5 +5,5 @@
 |F| **R3**                 | The system must have trained a **neuronal network** (maybe convolutional). |
 |F| **R4**                 | The **output** must be the **name of the gesture**. |      
 |NF| **R5**                 | The system must be written in **Python**.  |   
-|NF| **R6**                 | The **imput** should be a **video** (could be webcam). |                                                                                                                    
+|NF| **R6**                 | The **input** device should be a **webcam**. |                                                                                                                    
 |NF| **R7**                 | The system must use the **OpenCV library**. |
